@@ -8,17 +8,18 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: teal;
+			background-color: rgb(218, 202, 230);
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
 			display: block;
 			position: absolute;
 			top: 100px;
-			left: 0px;  /* <--- Change me! */
+			left: 200px;  /* <--- Change me! */
 		}
 		.board{
 			height: 100vh;
+			background-color: rgb(29, 6, 39)
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -63,17 +64,35 @@
 			
 			// TODO 2 - Variable declarations 
 			
+            var positionX = 100;
+			var points = 0
+			//todo 5.1
+			var speed = 10
 
-			
+			var positionY;
+            var speedY;
+			var boardHeight = jQuery(window).height(); 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
-				
-
+				/* Increase positionX by 10px*/
+				//todo 5.2
+				positionX = positionX + speed;
+				moveBoxTo(positionX)
+				if (positionX > boardWidth) {
+				speed = speed * -1
+			}
+			if (positionX < 0){
+				speed = speed * -1
+			}
 			};
+			function moveBoxTo(newPositionX, newPositionY) {
+      box.css('left', newPositionX);
+      box.css('top', newPositionY);
+  }
 
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
@@ -81,9 +100,16 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				positionX = 0;
+				points = points + 1
 				
-
-
+                changeBoxText(points);
+				if (speed > 0){
+					speed = speed + 3
+				}
+				if (speed < 0){
+					speed = speed - 3
+				}
 			};
 		})();
 	</script>
